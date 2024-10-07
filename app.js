@@ -30,6 +30,9 @@ app.use(express.urlencoded({extended:true}));
 app.use(cors());
 app.use(cookieParser());
 
+
+app.use("/api/users",userRoutes);
+
 // Server Setup
 app.listen(PORT,console.log(
   `Server started on port ${PORT}`));
