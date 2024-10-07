@@ -38,3 +38,28 @@ const signUpUser = async (req, res) => {
     console.log("Error in signUpUser:",error.message);
   }
 };
+
+const loginUser=async(req,res)=>{
+    try {
+        const {username,password}=req.body;
+        const user=await User.findOne({username});
+        const isPasswordCorrect=await bcrypt.compare(password,user?.password || "");
+        //if the user is not found then the value of user becomes a null object, and while we check the password, bcrypt doesn't support the check of a string and null value, hence we add password || "" defining if the user is null indicating no user.password, in that case simply compare it with an empty string which will automatically give us the false value and then we can easily proceed with that!
+        
+        if(!user || !isPasswordCorrect)
+            return res.status(400).json({error:"Invalid Username or Password"});
+
+        res.status(200).json({
+            _id:user._id,
+            name:user.name,
+            email:user.email,
+            username:user.username,
+            bio:user.bio,
+            profilepic:user.profilepic,
+        })
+        
+    } catch (error) {
+        res.status(500).json({error:error.message});
+        console.log("Error in loginuser functionality",error.message);
+    }
+};
