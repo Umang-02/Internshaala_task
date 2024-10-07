@@ -1,8 +1,13 @@
-// import express from 'express';
+import express from 'express';
+import connectDB from './db/connectDB.js';
+import dotenv from "dotenv";
+// const express = require('express');
 
-const express = require('express');
+dotenv.config();
 
-// Creating express object
+connectDB();
+
+// // Creating express object
 const app = express();
 
 // Port Number
