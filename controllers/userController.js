@@ -97,3 +97,5 @@ const updateUser=async(req,res)=>{
         console.log("Error in update user functionality",error.message);
     }
 };
+
+export {signUpUser,loginUser,updateUser}
